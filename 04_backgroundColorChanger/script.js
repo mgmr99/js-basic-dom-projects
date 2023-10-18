@@ -8,13 +8,18 @@ const randomColor = function () {
 };
 let intervalID;
 const changeBgColor = function () {
-  intervalID = setInterval(function () {
+  if (!intervalID) {
+    intervalID = setInterval(bgChanger, 1000);
+  }
+
+  function bgChanger() {
     console.log(randomColor());
     document.body.style.backgroundColor = randomColor();
-  }, 1000);
+  }
 };
 const stopchangeBgColor = function () {
   clearInterval(intervalID);
+  intervalID = null; //de-referencing the value
 };
 
 document.querySelector("#start").addEventListener("click", changeBgColor);
